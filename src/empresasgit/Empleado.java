@@ -36,6 +36,7 @@ public class Empleado extends Persona {
         return sueldoBruto;
     }
 
+
     public void setSueldoBruto(double sueldoBruto) {
         this.sueldoBruto = sueldoBruto;
     }
