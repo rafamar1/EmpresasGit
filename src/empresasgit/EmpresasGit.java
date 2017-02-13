@@ -15,9 +15,9 @@ public class EmpresasGit {
     /**
      * @param args the command line arguments
      */
-    static ArrayList<Persona> listaEmpresas;
+    static ArrayList <Empresa> listaEmpresas;
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws empresasError {
         
         
         listaEmpresas = new ArrayList();
@@ -66,6 +66,63 @@ public class EmpresasGit {
         
     }
     
+        static void altaPersonal(char tipo) throws empresasError {
+        Empresa empElegida = null;
+        listarEmpresas();
+        int nempre;
+
+        do {
+            nempre = pideNoEmpresa();
+            try {
+                empElegida = (Empresa) listaEmpresas.get(nempre - 1);
+            } catch (IndexOutOfBoundsException error) {
+                try {
+                    throw new empresasError("1");
+                } catch (empresasError error2) {
+                    System.out.println("¡Empresa no válida!");
+                }
+            }
+        } while (empElegida == null);
+
+        if (tipo == 'c') {
+            generaCliente(nempre);
+        } else if (tipo == 'e') {
+            generaEmpleado(nempre);
+        } else if (tipo == 'd') {
+            generaDirectivo(nempre);
+        } else if (tipo == 's') {
+            generaSubordinado(nempre);
+        }
+
+    }
+
+    private static void listarEmpresas() {
+        System.out.println("\n***Listado de Empresas***");
+        int i = 0;
+        for (Empresa empresa : listaEmpresas) {
+            System.out.println("\t" + (i + 1) + "-" + empresa.getCif());
+            i++;
+        }
+    }
+    
+    /*PREGUNTAR ALGUNA MANERA PARA CONTROLAR EL ERROR AQUI DEL INDICE FUERA DE EXCEPCION*/
+    private static void listarEmpleados(int nempre) {
+        System.out.println("\n***Listado de Empleados***");
+        int i = 0;
+        for (Empleado empleado : listaEmpresas.get(nempre - 1).getEmpleados()) {
+            System.out.println("\t" + (i + 1) + "- Nombre " + empleado.getNombre() + "; NIF -" + empleado.getNif());
+            i++;
+        }
+    }
+
+    private static void listarDirectivos(int nempre) {
+        System.out.println("\n***Listado de Directivos***");
+        int i = 0;
+        for (Directivo directivo : listaEmpresas.get(nempre - 1).getDirectivo()) {
+            System.out.println("\t" + (i + 1) + "-" + directivo.getNombre() + "; NIF: " + directivo.getNif());
+            i++;
+        }
+    }
     
     private static void menu() {
         System.out.println("1.- Alta Empresa");
@@ -91,6 +148,88 @@ public class EmpresasGit {
         System.out.println("\t 1- Dar de alta un nuevo Empleado");
         System.out.println("\t 2- Seleccionar un Empleado de la lista");
         return ES.leeN("Introduzca la opción deseada: ");
+    }
+    
+        private static void manejaDirectivoSubordinado(int opcionDS) throws empresasError {
+        
+        switch (opcionDS) {
+            case 1:
+                altaPersonal('d');
+                break;
+            case 2:
+                altaPersonal('s');
+                break;
+                
+            case 3:
+                break;
+            default:
+                System.out.println("La opción introducida no es válida");
+                break;
+        }
+            
+    }
+
+   /*private static void manejaBajas() {
+        DAR DE BAJA UN EMPLEADO
+        DAR DE BAJA UN CLIENTE
+        DAR DE BAJA UN DIRECTIVO
+    }*/
+    
+    private static void generaSubordinado(int nempre) {
+        listarDirectivos(nempre);
+        int noDirectivo = pideNoDirectivo();
+        System.out.println("\n**MENU SUBORDINADO**");
+        System.out.println("\t¿Qué subordinado añadira a la lista del directivo "+ 
+            listaEmpresas.get(nempre - 1).getDirectivo().get(noDirectivo-1).getNombre()+" ?");
+        
+        int opcion = menuEmpleado();
+        if (opcion == 1) {
+            Empleado subordinado = new Empleado(pideNombre(), pideApellidos(), pideNif());
+            listaEmpresas.get(nempre - 1).altaEmpleado(subordinado);
+            listaEmpresas.get(nempre - 1).getDirectivo().get(noDirectivo - 1).addSubordinado(subordinado);
+            System.out.println("\nEl empleado " + subordinado.getNombre() + "ahora trabaja para el Directivo " +
+                                listaEmpresas.get(nempre - 1).getDirectivo().get(noDirectivo - 1).getNombre());
+        } else if (opcion == 2) {
+            listarEmpleados(nempre);
+            int noEmpleado = pideNoEmpleado();
+            Empleado subordinado = listaEmpresas.get(nempre - 1).getEmpleados().get(noEmpleado - 1);
+            listaEmpresas.get(nempre - 1).getDirectivo().get(noDirectivo - 1).addSubordinado(subordinado);
+            System.out.println("\nEl empleado " + subordinado.getNombre() + "ahora trabaja para el Directivo " +
+                                listaEmpresas.get(nempre - 1).getDirectivo().get(noDirectivo - 1).getNombre());
+        } else {
+            System.out.println("¡Opción no válida!");
+        }
+    }
+
+    private static void generaDirectivo(int nempre) {
+        System.out.println("**MENU DIRECTIVO**");
+        int opcion = menuEmpleado();
+        
+        if (opcion == 1) {
+            Empleado empleDirectivo = new Empleado(pideNombre(), pideApellidos(), pideNif());
+            Directivo directivo = new Directivo(pideCategoria(), empleDirectivo);
+            listaEmpresas.get(nempre - 1).altaDirectivo(directivo);
+        } else if (opcion == 2) {
+            listarEmpleados(nempre);
+            int noEmpleado = pideNoEmpleado();
+            Empleado empDirectivo = listaEmpresas.get(nempre - 1).getEmpleados().get(noEmpleado - 1);
+            Directivo directivo = new Directivo(pideCategoria(), empDirectivo);
+            listaEmpresas.get(nempre - 1).altaDirectivo(directivo);
+            listaEmpresas.get(nempre - 1).getEmpleados().remove(empDirectivo);
+            System.out.println("\nEl empleado " +directivo.getNombre()+" es ahora un Directivo con categoría "+directivo.getCategoria());
+        } else {
+            System.out.println("¡Opción no válida!");
+        }
+    }
+
+    private static void generaEmpleado(int nempre) {
+        Empleado empleado = new Empleado(pideNombre(), pideApellidos(), pideNif());
+        listaEmpresas.get(nempre - 1).altaEmpleado(empleado);
+    }
+
+    private static void generaCliente(int nempre) {
+        Cliente cliente = new Cliente(pideCorreo(), pideNombre(), pideApellidos(), pideNif());
+        listaEmpresas.get(nempre - 1).altaCliente(cliente);
     }
     
     private static String pideCIF() {
