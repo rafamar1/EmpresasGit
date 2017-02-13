@@ -19,7 +19,6 @@ public class EmpresasGit {
     
     public static void main(String[] args) throws empresasError {
         
-        
         listaEmpresas = new ArrayList();
         int opcion;
         do {
@@ -47,22 +46,18 @@ public class EmpresasGit {
                     break;
 
                 case 5:
-                    //manejaBajas();
-                    break;
-
-                case 6:
                     listarEmpresas();
                     System.out.println(listaEmpresas.get(pideNoEmpresa() - 1));
                     break;
 
-                case 7:
+                case 6:
                     break;
                 default:
                     System.out.println("¡¡Opcion Errónea!!");
                     break;
             }
 
-        } while (opcion != 7);
+        } while (opcion != 6);
         
     }
     
@@ -129,9 +124,8 @@ public class EmpresasGit {
         System.out.println("2.- Alta Empleado");
         System.out.println("3.- Alta Cliente");
         System.out.println("4.- Manejar Directivos y Subordinados");
-        System.out.println("5.- Manejar Bajas de la Empresa");
-        System.out.println("6.- Listar Empresa");
-        System.out.println("7.- Salir");
+        System.out.println("5.- Listar Empresa");
+        System.out.println("6.- Salir");
     }
     
     private static int menuDirectivoySubordinado(){
@@ -169,12 +163,6 @@ public class EmpresasGit {
             
     }
 
-   /*private static void manejaBajas() {
-        DAR DE BAJA UN EMPLEADO
-        DAR DE BAJA UN CLIENTE
-        DAR DE BAJA UN DIRECTIVO
-    }*/
-    
     private static void generaSubordinado(int nempre) {
         listarDirectivos(nempre);
         int noDirectivo = pideNoDirectivo();
