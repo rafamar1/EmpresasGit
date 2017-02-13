@@ -7,7 +7,7 @@ package empresasgit;
 
 /**
  *
- * @author RafaMar
+ * @author rafamar1
  */
 public class empresasError extends Exception {
 
