@@ -58,10 +58,19 @@ public class Directivo extends Empleado {
     public void setSueldoBruto(double sueldoBruto) {
         this.sueldoBruto = sueldoBruto * 1.2;
     }
+    
+    String listaSubordinados() {
+        String listado = "\n\t **\\Lista de Subordinados del Directivo " + nombre +" //**" ;
+        Iterator<Empleado> iterator = listaSubordinados.iterator();
+        while (iterator.hasNext()) {
+            listado += "\n\t\t*" + iterator.next().getNif();
+        }
+        return listado;
+    }
 
     @Override
     public String toString() {
-        return super.toString() + " Categoria:" + categoria; //+ listaSubordinados();
+        return super.toString() + " Categoria:" + categoria+ listaSubordinados();
     }
 
 }
