@@ -11,6 +11,7 @@ import utilidades67.personas.Persona;
  *
  * @author RafaMar
  */
+
 public class Empleado extends Persona {
 
     protected double sueldoBruto;
