@@ -77,10 +77,37 @@ public class Empresa {
         this.directivos.add(directivo);
     }
 
+    //------------------------------------------
+
+    String listaMiembros() {
+        String listado = "\n\t *--Lista de Empleados--* ";
+
+        Iterator<Empleado> iteratorEmple = empleados.iterator();
+        while (iteratorEmple.hasNext()) {
+            listado += iteratorEmple.next().toString();
+        }
+
+        listado += "\n\t *--Lista de Directivos--* ";
+
+        Iterator<Directivo> iteratorDirectivo = directivos.iterator();
+        while (iteratorDirectivo.hasNext()) {
+            listado += iteratorDirectivo.next().toString();
+        }
+
+        listado += "\n\t *--Lista de Clientes--* ";
+
+        Iterator<Cliente> iteratorCliente = clientes.iterator();
+        while (iteratorCliente.hasNext()) {
+            listado += iteratorCliente.next().toString();
+        }
+
+        return listado;
+    }
+   
    
     @Override
     public String toString() {
-        return "Empresa: CIF de la Empresa: " + Cif + "\nPersonal:"; // + listaMiembros();
+        return "Empresa: CIF de la Empresa: " + Cif + "\nPersonal:" + listaMiembros();
     }
 
 }
