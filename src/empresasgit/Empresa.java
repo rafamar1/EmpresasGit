@@ -77,7 +77,6 @@ public class Empresa {
         this.directivos.add(directivo);
     }
 
-    //------------------------------------------
 
     String listaMiembros() {
         String listado = "\n\t *--Lista de Empleados--* ";

@@ -15,7 +15,7 @@ public class EmpresasGit {
     /**
      * @param args the command line arguments
      */
-    static ArrayList <Empresa> listaEmpresas;
+    static ArrayList<Empresa> listaEmpresas;
     
     public static void main(String[] args) throws empresasError {
         
@@ -61,7 +61,7 @@ public class EmpresasGit {
         
     }
     
-        static void altaPersonal(char tipo) throws empresasError {
+    static void altaPersonal(char tipo) throws empresasError {
         Empresa empElegida = null;
         listarEmpresas();
         int nempre;
@@ -90,8 +90,8 @@ public class EmpresasGit {
         }
 
     }
-
-    private static void listarEmpresas() {
+    
+     private static void listarEmpresas() {
         System.out.println("\n***Listado de Empresas***");
         int i = 0;
         for (Empresa empresa : listaEmpresas) {
@@ -142,6 +142,7 @@ public class EmpresasGit {
         System.out.println("\t 1- Dar de alta un nuevo Empleado");
         System.out.println("\t 2- Seleccionar un Empleado de la lista");
         return ES.leeN("Introduzca la opción deseada: ");
+
     }
     
         private static void manejaDirectivoSubordinado(int opcionDS) throws empresasError {
@@ -218,7 +219,7 @@ public class EmpresasGit {
     private static void generaCliente(int nempre) {
         Cliente cliente = new Cliente(pideCorreo(), pideNombre(), pideApellidos(), pideNif());
         listaEmpresas.get(nempre - 1).altaCliente(cliente);
-    }
+}
     
     private static String pideCIF() {
         return ES.leeDeTeclado("Introduzca el CIF de la Empresa: ");
