@@ -27,39 +27,43 @@ public class EmpresasGit {
 
             opcion = ES.leeN("Introduzca una opcion: ");
 
-            switch (opcion) {
-
-                case 1:
-                    listaEmpresas.add(new Empresa(pideCIF()));
-                    break;
-
-                case 2:
-                    altaPersonal('e');
-                    break;
-
-                case 3:
-                    altaPersonal('c');
-                    break;
-
-                case 4:
-                    int opcionDS = menuDirectivoySubordinado();
-                    manejaDirectivoSubordinado(opcionDS);
-                    break;
-
-                case 5:
-                    listarEmpresas();
-                    System.out.println(listaEmpresas.get(pideNoEmpresa() - 1));
-                    break;
-
-                case 6:
-                    break;
-                default:
-                    System.out.println("¡¡Opcion Errónea!!");
-                    break;
-            }
+            switchMenu(opcion);
 
         } while (opcion != 6);
         
+    }
+
+    private static void switchMenu(int opcion) throws empresasError {
+        switch (opcion) {
+            
+            case 1:
+                listaEmpresas.add(new Empresa(pideCIF()));
+                break;
+                
+            case 2:
+                altaPersonal('e');
+                break;
+                
+            case 3:
+                altaPersonal('c');
+                break;
+                
+            case 4:
+                int opcionDS = menuDirectivoySubordinado();
+                manejaDirectivoSubordinado(opcionDS);
+                break;
+                
+            case 5:
+                listarEmpresas();
+                System.out.println(listaEmpresas.get(pideNoEmpresa() - 1));
+                break;
+                
+            case 6:
+                break;
+            default:
+                System.out.println("¡¡Opcion Errónea!!");
+                break;
+        }
     }
     
         static void altaPersonal(char tipo) throws empresasError {
